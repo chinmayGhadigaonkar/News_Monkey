@@ -1,0 +1,91 @@
+business
+entertainment
+general
+health
+science
+sports
+technology
+
+<Route exact path="/"><News pageSize={5} category="general"/></Route>
+<Route exact path="/"><News pageSize={5} category="business"/></Route>
+<Route exact path="/"><News pageSize={5} category="entertainment"/></Route>
+<Route exact path="/"><News pageSize={5} category="health"/></Route>
+<Route exact path="/"><News pageSize={5} category="science"/></Route>
+<Route exact path="/"><News pageSize={5} category="sports"/></Route>
+<Route exact path="/"><News pageSize={5} category="technology"/></Route>
+
+
+// console.log("cdm");
+        // let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=9694904e8585416385608aaadaba6e6a&pagesize=${this.props.pageSize}&page=${this.state.page}`;
+        // this.setState( {loading:true} )
+        // let data = await fetch(url);
+        
+        // let parsedData = await data.json()
+        // console.log(parsedData.articles); 
+
+
+// let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=9694904e8585416385608aaadaba6e6a&pagesize=${this.props.pageSize}&page=${this.state.page - 1}`;
+        // this.setState( {loading:true} )
+        // let data = await fetch(url);
+        // let parsedData = await data.json()
+        // console.log(parsedData.articles);
+        
+
+
+
+
+
+
+
+    async componentDidMount() {    
+        this.updatefunction()
+        
+    }
+    handlePrevClick = async () => {
+        this.setState({ page: this.state.page - 1 });
+        this.updatefunction();
+
+
+    }
+
+    
+    handleNextClick = async () => { 
+            
+        this.setState({ page: this.state.page + 1 });
+        this.updatefunction();
+
+    }
+    async updatefunction(){
+        const  url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=9694904e8585416385608aaadaba6e6a&pagesize=${this.props.pageSize}&page=${this.state.page}`;
+        this.setState( {loading:true} )
+        let data = await fetch(url);
+        
+        let parsedData = await data.json()
+        console.log(parsedData.articles);
+        this.setState({
+            articles: parsedData.articles,
+            totalResults: parsedData.totalResults,
+            loading:false,
+          
+        })
+    }
+
+
+
+     // console.log("cdm");
+    // this.props.setProgress(10);
+    let url = `https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=${apiKey}&pagesize=${pageSize}&page=${page}`;
+    
+    // this.setState({ loading: true });
+    
+    let data = await fetch(url);
+
+
+    let parsedData = await data.json();
+    console.log(parsedData.articles);
+
+    this.setState({
+      articles: parsedData.articles,
+      totalResults: parsedData.totalResults,
+      loading: false,
+    });
